@@ -11,7 +11,6 @@ public class PickupHealth : MonoBehaviour
 
     Pickup pickup;
 
-    // Start is called before the first frame update
     void Start()
     {
         pickup = GetComponent<Pickup>();
@@ -25,7 +24,6 @@ public class PickupHealth : MonoBehaviour
 
         if (health)
         {
-            print("恢復了" + healAmount + "血量");
             health.Heal(healAmount);
 
             Destroy(pickupRoot);

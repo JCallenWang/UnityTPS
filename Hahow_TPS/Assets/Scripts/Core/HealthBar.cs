@@ -15,7 +15,6 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
-        //當血量百分比 =0（死亡） or =1（滿血）
         if (Mathf.Approximately(health.GetHealthRatio(), 0) || Mathf.Approximately(health.GetHealthRatio(), 1))
         {
             rootCanvas.SetActive(false);

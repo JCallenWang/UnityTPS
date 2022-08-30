@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//新增攻擊方式
 public enum Actor
 {
     Melee,
@@ -40,7 +39,6 @@ public class Fighter : MonoBehaviour
 
     void Update()
     {
-        //如果角色已死亡
         if (targetHealth == null || targetHealth.IsDead())
         {
             CancelTarget();
@@ -61,7 +59,6 @@ public class Fighter : MonoBehaviour
         LastAttackDuration += Time.deltaTime;
     }
 
-    //攻擊行為
     private void AttackBehaviour()
     {
         transform.LookAt(targetHealth.transform);
@@ -74,16 +71,13 @@ public class Fighter : MonoBehaviour
     }
 
 
-    //觸發攻擊動畫
     private void TriggerAttack()
     {
         animator.SetBool("IsAttack", true);
     }
 
-    //動畫攻擊揮手才扣血
     private void Hit()
     {
-        //沒有目標或是攻擊類型不是近戰
         if (targetHealth == null || actorType != Actor.Melee) return;
 
         if (IsInAttackRange())
@@ -105,7 +99,6 @@ public class Fighter : MonoBehaviour
     }
 
 
-    //檢查是否在攻擊範圍內
     private bool IsInAttackRange()
     {
         return Vector3.Distance(transform.position, targetHealth.transform.position) < attackRange;
@@ -127,7 +120,6 @@ public class Fighter : MonoBehaviour
         enabled = false;
     }
 
-    //顯示攻擊範圍
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

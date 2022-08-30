@@ -32,7 +32,6 @@ public class Camera_ThirdPerson : MonoBehaviour
     [SerializeField] GameObject deadText;
 
     bool isDead;
-    //初始相機角度
     float mouse_X = 0;
     float mouse_Y = 10;
 
@@ -52,17 +51,13 @@ public class Camera_ThirdPerson : MonoBehaviour
            pauseUI.SetActive(false);
            Time.timeScale = 1;
 
-           //垂直控制
            mouse_X += main_Input.GetMouseXAxis() * sensitivity_XY;
            mouse_Y += main_Input.GetMouseYAxis() * sensitivity_XY;
            mouse_Y = Mathf.Clamp(mouse_Y, minVerticalAngle, maxVerticalAngle);
 
-           //可根據XY輸入自由旋轉
            transform.rotation = Quaternion.Euler(mouse_Y, mouse_X, 0);
-           //根據物件中心+輸入旋轉的角度*往後的距離改變位置
            transform.position = target.position + Quaternion.Euler(mouse_Y, mouse_X, 0) * new Vector3(0, 0, -cameraToTargetDistance) + Vector3.up * offset.y;
 
-           //距離控制
            cameraToTargetDistance += main_Input.GetMouseScrollWheel() * sensitivity_wheel;
            cameraToTargetDistance = Mathf.Clamp(cameraToTargetDistance, minCameraDistance, maxCameraDistance);
         }

@@ -30,20 +30,15 @@ public class WeaponController : MonoBehaviour
     [Header("槍口特效")]
     [SerializeField] GameObject muzzleFlashPrefab;
 
-    //設定一個參數可以在外部更改（get可以被外部get，set可以被外部設置）
     public GameObject sourcePrefab { get; set; }
-    //只能由內部設定，外部取用
     public float currentAmmoRatio { get; private set; }
     public bool isCooling { get; private set; }
 
     Health health;
     bool isDead;
 
-    //當前子彈數量
     float currentAmmo;
-    //距離上次射擊的時間
     float timeSinceLastShoot;
-    //是否在瞄準狀態
     bool isAim;
 
     private void Awake()
@@ -54,7 +49,6 @@ public class WeaponController : MonoBehaviour
         health.onDead += OnDead;
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdateAmmo();
@@ -82,13 +76,11 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    //要不要顯示武器
     public void ShowWeapon(bool value)
     {
         weaponRoot.SetActive(value);
     }
 
-    //處理射擊行為
     public void HandleShootInput(bool inputDown, bool inputHeld, bool inputUp)
     {
         if (isDead) return;
@@ -98,14 +90,12 @@ public class WeaponController : MonoBehaviour
             case WeaponShootType.Single:
                 if (inputDown)
                 {
-                    print("Single 射擊");
                     TryShoot();
                 }
                 return;
             case WeaponShootType.Automatic:
                 if (inputHeld)
                 {
-                    print("Automatic 射擊");
                     TryShoot();
                 }
                 return;
@@ -116,7 +106,6 @@ public class WeaponController : MonoBehaviour
 
     private void TryShoot()
     {
-        //上次射擊的時間＋延遲時間<現在的時間（累計）
         if (currentAmmo >= 1 && timeSinceLastShoot + delayBetweenShoots < Time.time)
         {
             HandleShoot();
@@ -132,14 +121,12 @@ public class WeaponController : MonoBehaviour
             newProjectile.Shoot(GameObject.FindGameObjectWithTag("Player"));
         }
 
-        //開火特效
         if(muzzleFlashPrefab != null)
         {
             GameObject newMuzzlePrefab = Instantiate(muzzleFlashPrefab, weaponMuzzle.position, weaponMuzzle.rotation, weaponMuzzle);
             Destroy(newMuzzlePrefab, 1.5f);
         }
 
-        //目前的時間
         timeSinceLastShoot = Time.time;
     }
 

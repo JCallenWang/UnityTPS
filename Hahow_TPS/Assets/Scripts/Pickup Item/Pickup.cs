@@ -10,30 +10,26 @@ public class Pickup : MonoBehaviour
     [Tooltip("物體上下浮動的距離")] [SerializeField] float floatingDistance = 1f;
     [Tooltip("物體每秒旋轉的角度")] [SerializeField] float rotatingSpeed = 360;
 
-    //撿起Gameobject時通知所有訂閱者
     public event Action<GameObject> onPick;
 
-    Rigidbody rigidbody;
-    Collider collider;
+    Rigidbody rb;
+    Collider col;
 
     Vector3 startPosition;
 
-    // Start is called before the first frame update
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        collider = GetComponent<Collider>();
+        rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
 
-        rigidbody.isKinematic = true;
-        collider.isTrigger = true;
+        rb.isKinematic = true;
+        col.isTrigger = true;
 
         startPosition = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //上下移動的公式((Sin(時間*頻率)*速度)+修正) * 距離
         float floatingAnimationPhase = ((Mathf.Sin(Time.time * verticalFloatingFrequency) * 0.5f) + 0.5f) * floatingDistance;
         transform.position = startPosition + Vector3.up * floatingAnimationPhase;
 

@@ -12,8 +12,7 @@ public class MiniMapCamera : MonoBehaviour
         transform.position = target.position + positionOffset;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         transform.position = target.position + positionOffset;
     }

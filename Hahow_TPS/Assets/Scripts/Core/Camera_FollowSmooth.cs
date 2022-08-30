@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Camera_FollowSmooth : MonoBehaviour
 {
-    //如何延遲跟隨物件
-
     [Header("跟隨目標物件")]
     [SerializeField] Transform target;
     [Header("與目標的最大距離")]
@@ -32,7 +30,6 @@ public class Camera_FollowSmooth : MonoBehaviour
 
     private void LateUpdate()
     {
-        //滾輪更改物件高度
         if(main_Input.GetMouseScrollWheel() != 0)
         {
             offset_y += main_Input.GetMouseScrollWheel() * sensitivityOffset_z;
@@ -40,10 +37,8 @@ public class Camera_FollowSmooth : MonoBehaviour
         
             Vector3 nextMovement = target.position + target.up * offset_y;
             transform.position = Vector3.Lerp(transform.position, nextMovement, delayTime);
-            //transform.position = target.position + target.up * offset_y;
         }
 
-        //超過容許距離使物件開始移動
         if (CheckDistance())
         {
             smoothPosition = Vector3.SmoothDamp(transform.position, target.position + target.up * startHeight, ref currentVelocity, delayTime);
@@ -51,7 +46,6 @@ public class Camera_FollowSmooth : MonoBehaviour
         }
     }
 
-    //檢查與目標物件的距離是否超過容許值
     private bool CheckDistance()
     {
         return Vector3.Distance(transform.position, target.position) > distanceToTargetLimit;

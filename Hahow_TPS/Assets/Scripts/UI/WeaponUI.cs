@@ -12,7 +12,6 @@ public class WeaponUI : MonoBehaviour
 
     WeaponManager weaponManager;
 
-    // Start is called before the first frame update
     void Start()
     {
         weaponManager = GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponManager>();
@@ -31,13 +30,11 @@ public class WeaponUI : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
-            //continue : 繼續執行for迴圈，return : 不執行for迴圈
             if (weaponManager.GetWeaponAtSlotIndex(i) == null) continue;
 
             float value = weaponManager.GetWeaponAtSlotIndex(i).currentAmmoRatio;
             energy[i].fillAmount = Mathf.Lerp(energy[i].fillAmount, value, 0.2f);
 
-            //凸顯當前武器
             if (weaponManager.GetWeaponAtSlotIndex(i) == weaponManager.GetActiveWeapon())
             {
                 pocket[i].transform.localScale = Vector3.one;

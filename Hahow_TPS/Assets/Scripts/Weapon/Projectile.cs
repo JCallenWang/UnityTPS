@@ -26,7 +26,6 @@ public class Projectile : MonoBehaviour
     GameObject owner;
     bool canAttack;
 
-    //飛行速度
     Vector3 currentVelocity;
 
     private void OnEnable()
@@ -34,7 +33,6 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject, maxLifeTime);
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.position += currentVelocity * Time.deltaTime;
@@ -49,7 +47,6 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == owner || !canAttack) return;
-        //if (other.CompareTag("Weapon") || other.CompareTag("Projectile")) return;
         if ((other.CompareTag("Enemy") || other.CompareTag("Player")) && type == ProjectileType.Collider)
         {
             Health targetHealth = other.gameObject.GetComponent<Health>();
@@ -66,7 +63,6 @@ public class Projectile : MonoBehaviour
     private void OnParticleCollision(GameObject other)
     {
         if (other == owner || !canAttack) return;
-        //if (other.CompareTag("Weapon") || other.CompareTag("Projectile")) return;
         if ((other.gameObject.tag == "Enemy" || other.CompareTag("Player")) && type == ProjectileType.Particle)
         {
             Health targetHealth = other.gameObject.GetComponent<Health>();

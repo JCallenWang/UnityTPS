@@ -12,7 +12,6 @@ public class MuzzleRotateToScreenCenter : MonoBehaviour
 
     [SerializeField] float offset_Y = 10;
 
-    // Update is called once per frame
     void Update()
     {
         ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2 + offset_Y, 0));

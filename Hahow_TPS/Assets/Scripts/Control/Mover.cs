@@ -24,9 +24,7 @@ public class Mover : MonoBehaviour
 
     private void UpdateAimatior()
     {
-        //取得NavMesh的速度向量
         Vector3 velocity = navMeshAgent.velocity;
-        //速度向量轉變為物件中心的向量
         Vector3 localVelocity = transform.InverseTransformDirection(velocity);
 
         lastFrameSpeed = Mathf.Lerp(lastFrameSpeed, localVelocity.z, animationTransitionRatio);
@@ -34,14 +32,12 @@ public class Mover : MonoBehaviour
         GetComponent<Animator>().SetFloat("WalkSpeed", lastFrameSpeed / (maxSpeed-1));
     }
 
-    //移動到目標位置，以時間速率
     public void MoveTo(Vector3 destination, float speedRatio)
     {
         navMeshAgent.isStopped = false;
         navMeshAgent.speed = maxSpeed * Mathf.Clamp01(speedRatio);
         navMeshAgent.destination = destination;
     }
-    //取消移動
     public void CancelMove()
     {
         navMeshAgent.isStopped = true;
