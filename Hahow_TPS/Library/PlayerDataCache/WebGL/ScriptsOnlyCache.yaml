@@ -719,4 +719,4 @@ ScriptsOnlyBuild:
   platform: 20
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: /Users/jcwang/Desktop/Project/Unity/Unity-Github/UnityTPS/webglbuildtestten
+  playerPath: /Users/jcwang/Desktop/Project/Unity/Unity-Github/UnityTPS/webglbuildtesttwo
