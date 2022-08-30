@@ -29,8 +29,9 @@ public class Camera_ThirdPerson : MonoBehaviour
 
     [Header("遊戲控制")]
     [SerializeField] GameObject pauseUI;
+    [SerializeField] GameObject deadText;
 
-
+    bool isDead;
     //初始相機角度
     float mouse_X = 0;
     float mouse_Y = 10;
@@ -40,34 +41,41 @@ public class Camera_ThirdPerson : MonoBehaviour
         main_Input = GameManagerSingleton.Instance.InputController;
         player.GetComponent<Health>().onDamage += OnDamage;
         player.GetComponent<PlayerController>().onSprint += OnSprint;
+        player.GetComponent<Health>().onDead += OnDead;
 
     }
 
     private void LateUpdate()
     {
-        if(Cursor.lockState == CursorLockMode.Locked)
+        if (Cursor.lockState == CursorLockMode.Locked)
         {
-            pauseUI.SetActive(false);
-            Time.timeScale = 1;
+           pauseUI.SetActive(false);
+           Time.timeScale = 1;
 
-            //垂直控制
-            mouse_X += main_Input.GetMouseXAxis() * sensitivity_XY;
-            mouse_Y += main_Input.GetMouseYAxis() * sensitivity_XY;
-            mouse_Y = Mathf.Clamp(mouse_Y, minVerticalAngle, maxVerticalAngle);
+           //垂直控制
+           mouse_X += main_Input.GetMouseXAxis() * sensitivity_XY;
+           mouse_Y += main_Input.GetMouseYAxis() * sensitivity_XY;
+           mouse_Y = Mathf.Clamp(mouse_Y, minVerticalAngle, maxVerticalAngle);
 
-            //可根據XY輸入自由旋轉
-            transform.rotation = Quaternion.Euler(mouse_Y, mouse_X, 0);
-            //根據物件中心+輸入旋轉的角度*往後的距離改變位置
-            transform.position = target.position + Quaternion.Euler(mouse_Y, mouse_X, 0) * new Vector3(0, 0, -cameraToTargetDistance) + Vector3.up * offset.y;
+           //可根據XY輸入自由旋轉
+           transform.rotation = Quaternion.Euler(mouse_Y, mouse_X, 0);
+           //根據物件中心+輸入旋轉的角度*往後的距離改變位置
+           transform.position = target.position + Quaternion.Euler(mouse_Y, mouse_X, 0) * new Vector3(0, 0, -cameraToTargetDistance) + Vector3.up * offset.y;
 
-            //距離控制
-            cameraToTargetDistance += main_Input.GetMouseScrollWheel() * sensitivity_wheel;
-            cameraToTargetDistance = Mathf.Clamp(cameraToTargetDistance, minCameraDistance, maxCameraDistance);
+           //距離控制
+           cameraToTargetDistance += main_Input.GetMouseScrollWheel() * sensitivity_wheel;
+           cameraToTargetDistance = Mathf.Clamp(cameraToTargetDistance, minCameraDistance, maxCameraDistance);
         }
         else
         {
             pauseUI.SetActive(true);
             Time.timeScale = 0;
+        }
+
+        if (isDead)
+        {
+            pauseUI.SetActive(true);
+            deadText.SetActive(true);
         }
     }
 
@@ -83,5 +91,10 @@ public class Camera_ThirdPerson : MonoBehaviour
         if (sprintParticle == null) return;
 
         sprintParticle.Play();
+    }
+
+    private void OnDead()
+    {
+        isDead = true;
     }
 }

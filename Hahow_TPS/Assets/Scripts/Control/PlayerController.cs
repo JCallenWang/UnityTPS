@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
     private void JumpBehaviour()
     {
         //如果按下跳躍就施加向上的力
-        if (main_Input.GetJumpInput() && IsGrounded())
+        if (main_Input.GetJumpInput() && IsGrounded() && !isAim)
         {
             animator.SetTrigger("IsJump");
             jumpDirection = Vector3.zero;

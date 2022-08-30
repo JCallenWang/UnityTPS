@@ -162,7 +162,7 @@ MonoBehaviour:
   projectileSpeed: 100
   maxLifeTime: 3
   gravityDownForce: 10
-  damage: 40
+  damage: 5
   hitParticle: {fileID: 5415875436351983089, guid: 4b7b47095825449e68525edc8407deb7, type: 3}
   particleLifeTime: 2
 --- !u!1 &4601772521725150021

@@ -49,7 +49,7 @@ MonoBehaviour:
   projectileSpeed: 0
   maxLifeTime: 3
   gravityDownForce: 0
-  damage: 1
+  damage: 2
   hitParticle: {fileID: 0}
   particleLifeTime: 2
 --- !u!198 &996543009453167312
